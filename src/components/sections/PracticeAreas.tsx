@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useState } from 'react';
 import {
   Briefcase,
   FileText,
@@ -8,143 +6,137 @@ import {
   Compass,
   Building2,
   ShieldCheck,
-  ChevronDown,
-  CheckCircle,
+  CheckCircle2,
   ArrowUpLeft,
 } from 'lucide-react';
-import { PRACTICE_AREAS } from '../../constants/content';
+import { SERVICES_SECTION, PRACTICE_AREAS } from '../../constants/content';
+import { Services3DScene } from '../three/Services3DScene';
 import { SectionHeading } from '../ui/SectionHeading';
 import { Button } from '../ui/Button';
 import './PracticeAreas.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface PracticeAreasProps {
   onOpenConsultation: () => void;
 }
 
 export const PracticeAreas: React.FC<PracticeAreasProps> = ({ onOpenConsultation }) => {
-  const [expandedArea, setExpandedArea] = useState<string | null>('commercial');
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.practice-card-item', {
-        scrollTrigger: {
-          trigger: '.practice-areas-grid',
-          start: 'top 80%',
-        },
-        opacity: 0,
-        y: 35,
-        duration: 0.9,
-        stagger: 0.14,
-        ease: 'power3.out',
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const activeService = PRACTICE_AREAS[activeIndex];
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case 'Briefcase':
-        return <Briefcase size={26} />;
+        return <Briefcase size={20} />;
       case 'FileText':
-        return <FileText size={26} />;
+        return <FileText size={20} />;
       case 'Scale':
-        return <Scale size={26} />;
+        return <Scale size={20} />;
       case 'Compass':
-        return <Compass size={26} />;
+        return <Compass size={20} />;
       case 'Building2':
-        return <Building2 size={26} />;
+        return <Building2 size={20} />;
       case 'ShieldCheck':
-        return <ShieldCheck size={26} />;
+        return <ShieldCheck size={20} />;
       default:
-        return <Scale size={26} />;
+        return <Scale size={20} />;
     }
   };
 
-  const toggleExpand = (id: string) => {
-    setExpandedArea(expandedArea === id ? null : id);
-  };
-
   return (
-    <section id="services" ref={sectionRef} className="section section-alt practice-section">
+    <section id="services" className="section section-alt services-section">
       <div className="container">
         <SectionHeading
-          badge="نطاق الاختصاص والممارسة"
-          title="خدماتنا القانونية"
-          highlight="المتخصصة"
-          description="حلول قانونية واستشارية تغطي احتياجات الأفراد وقطاع الأعمال بأعلى درجات الدقة والمهنية."
+          badge="نطاق الممارسة القانونية"
+          title={SERVICES_SECTION.heading}
+          description={SERVICES_SECTION.supporting}
         />
 
-        <div className="practice-areas-grid">
-          {PRACTICE_AREAS.map((area) => {
-            const isExpanded = expandedArea === area.id;
-
-            return (
-              <div
-                key={area.id}
-                className={`practice-card-item surface-card ${area.featured ? 'featured-card' : ''} ${
-                  isExpanded ? 'is-expanded' : ''
-                }`}
-              >
-                <div className="practice-card-header">
-                  <div className="practice-card-meta">
-                    <span className="practice-number">{area.number}</span>
-                    <div className="practice-icon-box">{getIcon(area.icon)}</div>
-                  </div>
-                  {area.featured && <span className="featured-chip">اختصاص رئيسي</span>}
-                </div>
-
-                <div className="practice-card-body">
-                  <h3 className="practice-title">{area.title}</h3>
-                  <p className="practice-short-desc">{area.shortDesc}</p>
-
-                  {/* Expanded Detail Panel */}
-                  <div className={`practice-expanded-content ${isExpanded ? 'show' : ''}`}>
-                    <p className="practice-full-desc">{area.fullDesc}</p>
-
-                    <div className="practice-key-services">
-                      <span className="key-services-title">أبرز مجالات التمثيل والمباشرة:</span>
-                      <ul className="key-services-list">
-                        {area.keyServices.map((service, idx) => (
-                          <li key={idx} className="key-service-item">
-                            <CheckCircle size={15} className="service-bullet-icon" />
-                            <span>{service}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="practice-expanded-action">
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        onClick={onOpenConsultation}
-                        icon={<ArrowUpLeft size={16} />}
-                        iconPosition="end"
-                      >
-                        طلب استشارة في هذا المجال
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="practice-card-footer">
+        {/* Interactive Master-Detail Layout with 3D Object */}
+        <div className="services-interactive-container">
+          {/* 1. Disciplines Selector List (Horizontal on mobile, vertical column on desktop) */}
+          <div className="services-selector-column">
+            <span className="selector-column-title">مجالات الممارسة المتخصصة:</span>
+            <div className="services-tab-list" role="tablist">
+              {PRACTICE_AREAS.map((item, idx) => {
+                const isActive = activeIndex === idx;
+                return (
                   <button
+                    key={item.id}
                     type="button"
-                    className="toggle-expand-btn"
-                    onClick={() => toggleExpand(area.id)}
-                    aria-expanded={isExpanded}
+                    role="tab"
+                    aria-selected={isActive}
+                    className={`service-tab-button ${isActive ? 'active' : ''}`}
+                    onClick={() => setActiveIndex(idx)}
                   >
-                    <span>{isExpanded ? 'إخفاء التفاصيل' : 'استعراض تفاصيل الخدمة'}</span>
-                    <ChevronDown size={16} className={`chevron-icon ${isExpanded ? 'rotated' : ''}`} />
+                    <div className="tab-number-badge">
+                      <span className="tab-num">{item.number}</span>
+                    </div>
+
+                    <div className="tab-info">
+                      <span className="tab-title">{item.title}</span>
+                    </div>
+
+                    <div className="tab-icon-wrap" aria-hidden="true">
+                      {getIcon(item.icon)}
+                    </div>
                   </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 2. Expansive Active Service Detail Content & Three.js 3D Visualization */}
+          <div className="services-presentation-panel surface-card">
+            <div className="presentation-content-area">
+              <div className="presentation-header">
+                <div className="presentation-meta">
+                  <span className="presentation-number gold-gradient-text-alt">
+                    {activeService.number}
+                  </span>
+                  <div className="presentation-icon-box">
+                    {getIcon(activeService.icon)}
+                  </div>
                 </div>
+                <h3 className="presentation-title">{activeService.title}</h3>
               </div>
-            );
-          })}
+
+              <p className="presentation-lead">{activeService.shortDesc}</p>
+              <p className="presentation-body">{activeService.fullDesc}</p>
+
+              <div className="presentation-scope-box">
+                <span className="scope-title">نطاق التكليف والتمثيل المباشر:</span>
+                <ul className="scope-list">
+                  {activeService.keyServices.map((service, idx) => (
+                    <li key={idx} className="scope-item">
+                      <CheckCircle2 size={16} className="scope-check-icon" />
+                      <span>{service}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="presentation-action-row">
+                <Button
+                  variant="primary"
+                  size="md"
+                  onClick={onOpenConsultation}
+                  icon={<ArrowUpLeft size={18} />}
+                  iconPosition="end"
+                >
+                  طلب استشارة في {activeService.title}
+                </Button>
+              </div>
+            </div>
+
+            {/* 3D Visualization for the Selected Service */}
+            <div className="presentation-3d-area">
+              <div className="three-view-caption">
+                <span className="caption-pulse-dot" />
+                <span>المجسم السداسي للمجالات — يدور تلقائيًا مع اختيار التخصص</span>
+              </div>
+              <Services3DScene activeServiceIndex={activeIndex} />
+            </div>
+          </div>
         </div>
       </div>
     </section>

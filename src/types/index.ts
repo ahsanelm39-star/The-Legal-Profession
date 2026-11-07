@@ -39,6 +39,7 @@ export interface TeamMember {
   bio: string;
   focusAreas: string[];
   initials: string;
+  isFeatured?: boolean;
 }
 
 export interface InsightArticle {
@@ -50,6 +51,7 @@ export interface InsightArticle {
   content: string[];
   keyTakeaways: string[];
   date: string;
+  isFeatured?: boolean;
 }
 
 export interface FAQItem {

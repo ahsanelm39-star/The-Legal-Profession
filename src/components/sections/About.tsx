@@ -1,37 +1,39 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ShieldCheck, Compass, Target } from 'lucide-react';
+import { CheckCircle2, Shield, Compass, BookOpen } from 'lucide-react';
 import { ABOUT_CONTENT } from '../../constants/content';
-import { SectionHeading } from '../ui/SectionHeading';
+import { Badge } from '../ui/Badge';
 import './About.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const About: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const textColRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.about-reveal-col', {
+      gsap.from('.about-split-side', {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top 75%',
         },
         opacity: 0,
         y: 40,
-        duration: 1,
+        duration: 1.1,
         stagger: 0.25,
         ease: 'power3.out',
       });
 
-      gsap.from('.about-pillar-card', {
+      gsap.from('.about-principle-item', {
         scrollTrigger: {
-          trigger: '.about-pillars-grid',
+          trigger: '.about-principles-row',
           start: 'top 85%',
         },
         opacity: 0,
-        y: 30,
+        x: -25,
         duration: 0.8,
         stagger: 0.15,
         ease: 'power3.out',
@@ -41,75 +43,83 @@ export const About: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  const pillarIcons = [<Compass size={24} />, <Target size={24} />, <ShieldCheck size={24} />];
-
   return (
     <section id="about" ref={sectionRef} className="section about-section">
       <div className="container">
-        <SectionHeading
-          badge={ABOUT_CONTENT.badge}
-          title={ABOUT_CONTENT.title}
-          highlight="— الأصالة والحصانة القانونية"
-          description="رؤيتنا القانونية قائمة على المزج بين الفهم التجاري والعمق القضائي لتقديم قيمة ملموسة."
-        />
-
-        <div className="about-editorial-grid">
-          {/* Text Story Column */}
-          <div className="about-reveal-col about-text-side">
-            <div className="about-lead-quote">
-              <p className="lead-text">{ABOUT_CONTENT.lead}</p>
+        {/* Editorial Split-Screen Composition */}
+        <div className="about-editorial-split">
+          {/* Right/Start Side: Oversized Arabic Statement & Visual Monolith */}
+          <div className="about-split-side about-statement-side">
+            <div className="about-badge-wrap">
+              <Badge variant="gold" icon={<Compass size={14} />}>
+                {ABOUT_CONTENT.badge}
+              </Badge>
             </div>
 
-            <p className="about-narrative">{ABOUT_CONTENT.story}</p>
+            <h2 ref={headlineRef} className="about-oversized-statement">
+              القانون يبدأ <br />
+              <span className="gold-gradient-text">من فهم التفاصيل.</span>
+            </h2>
 
-            <div className="about-signature-block">
-              <div className="signature-symbol" aria-hidden="true">
-                <span className="symbol-letter">م</span>
-              </div>
-              <div className="signature-info">
-                <span className="signature-name">مجلس الشركاء والاستشارات</span>
-                <span className="signature-role">مِيثاق للمحاماة والاستشارات القانونية</span>
+            <div className="about-statement-divider" aria-hidden="true">
+              <span className="divider-line" />
+              <span className="divider-diamond" />
+            </div>
+
+            {/* Architectural Visual Monument */}
+            <div className="about-monument-card surface-card">
+              <div className="monument-glow" />
+              <div className="monument-inner">
+                <div className="monument-symbol-box">
+                  <Shield size={32} className="monument-shield-icon" />
+                  <span className="monument-year">تأسست على رصانة المنهج</span>
+                </div>
+                <p className="monument-caption">
+                  "كل قضية مسار مستقل يتطلب تدقيقًا شاملاً للوقائع وصياغة استراتيجية مخصصة تحمي المصالح طويلة الأمد."
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Architectural Graphic Composition */}
-          <div className="about-reveal-col about-visual-side">
-            <div className="arch-visual-card">
-              <div className="arch-card-glow" />
-              <div className="arch-card-border" />
-              
-              <div className="arch-card-content">
-                <div className="arch-monogram-display">
-                  <div className="monogram-outer-ring">
-                    <div className="monogram-inner-ring">
-                      <span className="monogram-glyph">مِيثاق</span>
+          {/* Left/End Side: Rich Supporting Narrative & 3 Institutional Principles */}
+          <div ref={textColRef} className="about-split-side about-narrative-side">
+            <div className="about-main-lead-box">
+              <BookOpen size={24} className="lead-quote-icon" />
+              <p className="about-main-lead">{ABOUT_CONTENT.mainParagraph}</p>
+            </div>
+
+            <p className="about-supporting-text">{ABOUT_CONTENT.supportingContent}</p>
+
+            <div className="about-principles-wrapper">
+              <span className="principles-section-tag">مرتكزات التعامل القانوني في مِيثاق:</span>
+
+              <div className="about-principles-row">
+                {ABOUT_CONTENT.principles.map((pr) => (
+                  <div key={pr.number} className="about-principle-item">
+                    <div className="principle-number-box">
+                      <span className="principle-num">{pr.number}</span>
                     </div>
+                    <div className="principle-content">
+                      <h4 className="principle-title">{pr.title}</h4>
+                      <p className="principle-desc">{pr.desc}</p>
+                    </div>
+                    <CheckCircle2 size={18} className="principle-check-icon" />
                   </div>
-                </div>
+                ))}
+              </div>
+            </div>
 
-                <div className="arch-card-caption">
-                  <span className="caption-tag">المبادئ الحاكمة</span>
-                  <h3 className="caption-title">رصانة المنهج وشرف الرسالة</h3>
-                  <p className="caption-text">
-                    نعتبر الوكالة القانونية عقد أمانة قبل أن تكون عملاً مهنيًا، ونلتزم بصيانة أسرار الموكلين
-                    وتسخير كامل المكنة المعرفية لحماية مصالحهم المشروعة.
-                  </p>
-                </div>
+            {/* Signature & Advisory Institutional Commitment */}
+            <div className="about-commitment-card">
+              <div className="commitment-text">
+                <span className="commitment-title">التزام مؤسسي راسخ</span>
+                <span className="commitment-sub">بالأمانة المهنية وحفظ أسرار الموكلين التامة</span>
+              </div>
+              <div className="commitment-seal" aria-hidden="true">
+                <span>مِيثاق</span>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Core Pillars Grid */}
-        <div className="about-pillars-grid">
-          {ABOUT_CONTENT.pillars.map((pillar, idx) => (
-            <div key={idx} className="about-pillar-card surface-card">
-              <div className="pillar-icon-box">{pillarIcons[idx]}</div>
-              <h4 className="pillar-title">{pillar.title}</h4>
-              <p className="pillar-desc">{pillar.desc}</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>

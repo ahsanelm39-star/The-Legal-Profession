@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArrowUpLeft, MessageSquare, PhoneCall } from 'lucide-react';
+import { ArrowUpLeft, MessageSquare, PhoneCall, Shield } from 'lucide-react';
+import { FINAL_CTA, BRAND_INFO } from '../../constants/content';
 import { Button } from '../ui/Button';
 import './CTA.css';
 
@@ -9,25 +10,30 @@ interface CTAProps {
 
 export const CTA: React.FC<CTAProps> = ({ onOpenConsultation }) => {
   return (
-    <section className="section cta-section">
+    <section className="section cta-monument-section">
       <div className="container">
-        <div className="cta-banner-wrapper">
-          <div className="cta-glow-element" aria-hidden="true" />
-          <div className="cta-grid-lines" aria-hidden="true" />
+        <div className="cta-monument-frame">
+          <div className="cta-ambient-glow" aria-hidden="true" />
+          <div className="cta-hairline-grid" aria-hidden="true" />
 
-          <div className="cta-content-box">
-            <span className="cta-eyebrow">الاستجابة والاستعداد</span>
+          {/* Architectural Framing Corners */}
+          <div className="cta-corner top-right" aria-hidden="true" />
+          <div className="cta-corner bottom-left" aria-hidden="true" />
 
-            <h2 className="cta-headline">
-              خطوتك القانونية تبدأ <span className="gold-gradient-text">بحوار واضح.</span>
+          <div className="cta-monument-content">
+            <div className="cta-badge-pill">
+              <Shield size={14} />
+              <span>جاهزية استشارية متكاملة</span>
+            </div>
+
+            <h2 className="cta-monument-heading">
+              لأن القرارات المهمة <br />
+              <span className="gold-gradient-text">تستحق رؤية واضحة.</span>
             </h2>
 
-            <p className="cta-supporting">
-              تواصل معنا لمناقشة احتياجاتك والتعرف على المسار المناسب لتقديم الدعم القانوني، مع ضمان
-              السرية التامة والموضوعية في تقييم الموقف.
-            </p>
+            <p className="cta-monument-supporting">{FINAL_CTA.supporting}</p>
 
-            <div className="cta-actions-group">
+            <div className="cta-actions-cluster">
               <Button
                 variant="primary"
                 size="lg"
@@ -35,7 +41,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenConsultation }) => {
                 icon={<ArrowUpLeft size={18} />}
                 iconPosition="end"
               >
-                تواصل معنا الآن
+                {FINAL_CTA.buttonText}
               </Button>
 
               <Button
@@ -44,13 +50,15 @@ export const CTA: React.FC<CTAProps> = ({ onOpenConsultation }) => {
                 href="#contact"
                 icon={<MessageSquare size={18} />}
               >
-                تعبئة نموذج الاستفسار
+                نموذج الاستفسار المباشر
               </Button>
             </div>
 
-            <div className="cta-direct-call-hint">
-              <PhoneCall size={15} className="hint-icon" />
-              <span>أو اتصل مباشرة بفريق التنسيق: <strong dir="ltr">+966 11 000 0000</strong></span>
+            <div className="cta-direct-line">
+              <PhoneCall size={16} className="direct-phone-icon" />
+              <span>
+                للحالات المستعجلة والتنسيق المباشر: <strong dir="ltr">{BRAND_INFO.phone}</strong>
+              </span>
             </div>
           </div>
         </div>

@@ -10,6 +10,7 @@ import {
   Check,
   AlertCircle,
   ShieldCheck,
+  MessageSquare,
 } from 'lucide-react';
 import { BRAND_INFO } from '../../constants/content';
 import type { ContactFormData, FormStatus } from '../../types';
@@ -55,7 +56,7 @@ export const Contact: React.FC = () => {
       setFormStatus({
         submitted: true,
         success: false,
-        message: 'يرجى استكمال الحقول الإلزامية المطلوبة للمتابعة.',
+        message: 'يرجى استكمال الحقول الإلزامية المطلوبة (الاسم، البريد، ورقم الهاتف).',
         isSubmitting: false,
       });
       return;
@@ -63,16 +64,16 @@ export const Contact: React.FC = () => {
 
     setFormStatus((prev) => ({ ...prev, isSubmitting: true }));
 
-    // Simulate client-side demo submission with clear transparency
+    // Demo Mode Simulation with full transparency
     setTimeout(() => {
       setFormStatus({
         submitted: true,
         success: true,
         message:
-          'تم استلام بيانات استفساركم بنجاح (وضع العرض التجريبي). نؤكد التزامنا بالسرية التامة وسيتواصل معكم فريق العمل قريبًا.',
+          'تم استلام بيانات استفساركم بنجاح (بيئة العرض التوضيحية - Demo Mode). نؤكد التزامنا التام بالسرية المهنية، وسيتواصل معكم فريق التنسيق قريبًا.',
         isSubmitting: false,
       });
-    }, 900);
+    }, 850);
   };
 
   const resetForm = () => {
@@ -95,66 +96,167 @@ export const Contact: React.FC = () => {
     <section id="contact" className="section contact-section">
       <div className="container">
         <SectionHeading
-          badge="قنوات الاتصال المباشر"
-          title="تواصل مع"
-          highlight="مِيثاق"
-          description="نسعد باستقبال طلبات الاستشارة والاستفسارات المهنية عبر قنواتنا المعتمدة."
+          badge="قنوات الاتصال المؤسسي"
+          title="تواصل مع مِيثاق"
+          description="نسعد باستقبال استفسارات قطاع الأعمال والمستثمرين والأفراد وترتيب جلسات الاستشارة المباشرة."
         />
 
-        <div className="contact-layout-grid">
-          {/* Form Side (1.2fr) */}
-          <div className="contact-form-side surface-card">
-            <div className="form-inner-header">
-              <h3 className="form-headline">نموذج طلب التنسيق والاستفسار</h3>
-              <p className="form-subtext">
-                يرجى تدوين ملخص مسألتكم وسيتم توجيهها للقسم المختص بأسرع وقت.
+        {/* Premium Split Layout: Editorial Info Intro on Left/Start + Carefully Styled Form on Right/End */}
+        <div className="contact-editorial-split">
+          {/* Editorial Info Side (1.05fr) */}
+          <div className="contact-editorial-info">
+            <div className="info-editorial-header">
+              <span className="editorial-eyebrow">حوار قانوني مباشر وموثوق</span>
+              <h3 className="info-main-title">
+                نستمع باهتمام، <br />
+                <span className="gold-gradient-text">ونجيب بدقة ومسؤولية.</span>
+              </h3>
+              <p className="info-narrative-paragraph">
+                سواء كنت تؤسس لكيان استثماري جديد، أو تعيد صياغة عقودك وشراكاتك التجارية، أو تواجه
+                نزاعًا يتطلب بناء استراتيجية قضائية محكمة، يسعدنا مناقشة خياراتك بكل وضوح وشفافية.
               </p>
             </div>
 
+            <div className="info-channels-grid">
+              {/* Phone Card */}
+              <div className="contact-channel-card surface-card">
+                <div className="channel-icon-box">
+                  <Phone size={20} />
+                </div>
+                <div className="channel-body">
+                  <span className="channel-label">الهاتف الموحد للاستشارات</span>
+                  <span className="channel-value" dir="ltr">
+                    {BRAND_INFO.phone}
+                  </span>
+                  <button
+                    type="button"
+                    className="channel-copy-btn"
+                    onClick={() => handleCopy(BRAND_INFO.phone, 'phone')}
+                  >
+                    {copiedField === 'phone' ? (
+                      <>
+                        <Check size={13} className="check-green" /> تم نسخ الرقم
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={13} /> نسخ رقم الهاتف
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Email Card */}
+              <div className="contact-channel-card surface-card">
+                <div className="channel-icon-box">
+                  <Mail size={20} />
+                </div>
+                <div className="channel-body">
+                  <span className="channel-label">البريد الإلكتروني المعتمد</span>
+                  <span className="channel-value" dir="ltr">
+                    {BRAND_INFO.email}
+                  </span>
+                  <button
+                    type="button"
+                    className="channel-copy-btn"
+                    onClick={() => handleCopy(BRAND_INFO.email, 'email')}
+                  >
+                    {copiedField === 'email' ? (
+                      <>
+                        <Check size={13} className="check-green" /> تم نسخ البريد
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={13} /> نسخ البريد الإلكتروني
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Address Card */}
+              <div className="contact-channel-card surface-card">
+                <div className="channel-icon-box">
+                  <MapPin size={20} />
+                </div>
+                <div className="channel-body">
+                  <span className="channel-label">المقر الرئيسي بالرياض</span>
+                  <p className="channel-address">{BRAND_INFO.address}</p>
+                </div>
+              </div>
+
+              {/* Working Hours Card */}
+              <div className="contact-channel-card surface-card">
+                <div className="channel-icon-box">
+                  <Clock size={20} />
+                </div>
+                <div className="channel-body">
+                  <span className="channel-label">أوقات العمل واستقبال المواعيد</span>
+                  <span className="channel-time">{BRAND_INFO.workingHours}</span>
+                  <span className="channel-note">{BRAND_INFO.consultationNote}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Carefully Styled Form Side (1.25fr) */}
+          <div className="contact-form-container surface-card">
+            <div className="form-card-header">
+              <div className="form-badge-icon">
+                <MessageSquare size={18} />
+              </div>
+              <div className="form-titles">
+                <h4 className="form-card-title">نموذج طلب الاستشارة والمراسلة</h4>
+                <span className="form-card-sub">يتم التعامل مع جميع البيانات بسرية مهنية مطلقة</span>
+              </div>
+            </div>
+
             {formStatus.submitted && formStatus.success ? (
-              <div className="contact-success-state">
-                <div className="success-icon-badge">
-                  <CheckCircle size={40} className="icon-success" />
+              <div className="contact-form-success">
+                <div className="success-badge-circle">
+                  <CheckCircle size={38} className="success-svg" />
                 </div>
-                <h4 className="success-heading">تم إرسال الاستفسار بنجاح</h4>
-                <p className="success-desc">{formStatus.message}</p>
-                <div className="demo-notice-chip">
+                <h4 className="success-lead-title">تم استلام طلبكم بنجاح</h4>
+                <p className="success-lead-desc">{formStatus.message}</p>
+
+                <div className="demo-mode-alert">
                   <AlertCircle size={15} />
-                  <span>ملاحظة تقنية: تم تفعيل هذا النموذج في بيئة المعاينة (Demo Mode).</span>
+                  <span>تنويه المعاينة: النموذج يعمل حاليًا في نمط العرض التوضيحي (Demo Mode).</span>
                 </div>
+
                 <Button variant="secondary" size="md" onClick={resetForm}>
-                  إرسال استفسار جديد
+                  إرسال استفسار آخر
                 </Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="contact-actual-form" noValidate>
+              <form onSubmit={handleSubmit} className="contact-form-actual" noValidate>
                 {formStatus.submitted && !formStatus.success && (
-                  <div className="form-error-banner">
+                  <div className="form-warning-banner">
                     <AlertCircle size={16} />
                     <span>{formStatus.message}</span>
                   </div>
                 )}
 
-                <div className="form-grid-two">
-                  <div className="form-field">
-                    <label htmlFor="contact-fullName" className="field-label">
-                      الاسم الكامل أو اسم المنشأة <span className="req">*</span>
+                <div className="form-fields-grid">
+                  <div className="form-field-item">
+                    <label htmlFor="contact-fullName" className="field-caption">
+                      الاسم الكامل أو اسم المنشأة <span className="field-req">*</span>
                     </label>
                     <input
                       id="contact-fullName"
                       name="fullName"
                       type="text"
                       required
-                      placeholder="مثال: شركة التطوير العقاري"
+                      placeholder="مثال: شركة الأفق للاستثمار"
                       value={formData.fullName}
                       onChange={handleChange}
-                      className="form-input"
+                      className="field-text-input"
                     />
                   </div>
 
-                  <div className="form-field">
-                    <label htmlFor="contact-email" className="field-label">
-                      البريد الإلكتروني <span className="req">*</span>
+                  <div className="form-field-item">
+                    <label htmlFor="contact-email" className="field-caption">
+                      البريد الإلكتروني <span className="field-req">*</span>
                     </label>
                     <input
                       id="contact-email"
@@ -164,73 +266,73 @@ export const Contact: React.FC = () => {
                       placeholder="name@company.com"
                       value={formData.email}
                       onChange={handleChange}
-                      className="form-input"
+                      className="field-text-input"
                       dir="ltr"
                     />
                   </div>
                 </div>
 
-                <div className="form-grid-two">
-                  <div className="form-field">
-                    <label htmlFor="contact-phone" className="field-label">
-                      رقم الهاتف / الجوال <span className="req">*</span>
+                <div className="form-fields-grid">
+                  <div className="form-field-item">
+                    <label htmlFor="contact-phone" className="field-caption">
+                      رقم الهاتف / الجوال للتواصل <span className="field-req">*</span>
                     </label>
                     <input
                       id="contact-phone"
                       name="phone"
                       type="tel"
                       required
-                      placeholder="05XXXXXXXX"
+                      placeholder="05XXXXXXXX أو +966..."
                       value={formData.phone}
                       onChange={handleChange}
-                      className="form-input"
+                      className="field-text-input"
                       dir="ltr"
                     />
                   </div>
 
-                  <div className="form-field">
-                    <label htmlFor="contact-inquiryType" className="field-label">
-                      نوع الاستفسار أو القضية
+                  <div className="form-field-item">
+                    <label htmlFor="contact-inquiryType" className="field-caption">
+                      نوع المسألة أو الاستشارة
                     </label>
                     <select
                       id="contact-inquiryType"
                       name="inquiryType"
                       value={formData.inquiryType}
                       onChange={handleChange}
-                      className="form-select"
+                      className="field-select-input"
                     >
-                      <option value="commercial">القانون التجاري وتأسيس الكيانات</option>
-                      <option value="contracts">صياغة ومراجعة العقود والاتفاقيات</option>
-                      <option value="litigation">التقاضي والتحكيم وفض المنازعات</option>
-                      <option value="realestate">القانون العقاري والتطوير</option>
+                      <option value="commercial">القانون التجاري وقانون الشركات</option>
+                      <option value="contracts">صياغة العقود والاتفاقيات</option>
+                      <option value="litigation">التقاضي وتسوية المنازعات</option>
+                      <option value="consultation">الاستشارات القانونية الاستراتيجية</option>
+                      <option value="realestate">القانون العقاري والمعاملات العقارية</option>
                       <option value="ip">الملكية الفكرية والعلامات التجارية</option>
-                      <option value="other">استشارة قانونية أخرى</option>
+                      <option value="other">استفسار قانوني عام</option>
                     </select>
                   </div>
                 </div>
 
-                <div className="form-field">
-                  <label htmlFor="contact-message" className="field-label">
-                    ملخص المسألة أو الاستفسار القانوني <span className="req">*</span>
+                <div className="form-field-item">
+                  <label htmlFor="contact-message" className="field-caption">
+                    ملخص المسألة أو النقاط المراد بحثها
                   </label>
                   <textarea
                     id="contact-message"
                     name="message"
                     rows={4}
-                    required
-                    placeholder="يرجى ذكر موجز للوقائع والنقاط الجوهرية المراد بحثها..."
+                    placeholder="يرجى تدوين موجز عن طبيعة الموضوع والوثائق المتوفرة..."
                     value={formData.message}
                     onChange={handleChange}
-                    className="form-textarea"
+                    className="field-textarea-input"
                   />
                 </div>
 
-                <div className="form-security-reassurance">
-                  <ShieldCheck size={16} className="reassurance-icon" />
-                  <span>تخضع جميع المراسلات لاتفاقية سرية مهنية صارمة ولا يُفشى أي جزء منها.</span>
+                <div className="form-confidentiality-notice">
+                  <ShieldCheck size={16} className="notice-shield" />
+                  <span>تخضع المراسلات لبروتوكول السرية المهنية المعمول به في مِيثاق.</span>
                 </div>
 
-                <div className="form-submit-row">
+                <div className="form-submit-wrapper">
                   <Button
                     type="submit"
                     variant="primary"
@@ -239,90 +341,11 @@ export const Contact: React.FC = () => {
                     icon={<Send size={18} />}
                     iconPosition="start"
                   >
-                    {formStatus.isSubmitting ? 'جاري التحقق والإرسال...' : 'إرسال طلب الاستشارة'}
+                    {formStatus.isSubmitting ? 'جاري الإرسال والمراجعة...' : 'إرسال طلب الاستشارة'}
                   </Button>
                 </div>
               </form>
             )}
-          </div>
-
-          {/* Contact Information Cards (1fr) */}
-          <div className="contact-info-side">
-            {/* Phone Card */}
-            <div className="info-feature-card surface-card">
-              <div className="info-card-icon-box">
-                <Phone size={22} />
-              </div>
-              <div className="info-card-content">
-                <span className="info-card-label">الهاتف الموحد للاستشارات</span>
-                <span className="info-card-value" dir="ltr">{BRAND_INFO.phone}</span>
-                <button
-                  type="button"
-                  className="info-copy-action"
-                  onClick={() => handleCopy(BRAND_INFO.phone, 'phone')}
-                >
-                  {copiedField === 'phone' ? (
-                    <>
-                      <Check size={14} className="copied-icon" /> تم نسخ الرقم
-                    </>
-                  ) : (
-                    <>
-                      <Copy size={14} /> نسخ رقم الهاتف
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* Email Card */}
-            <div className="info-feature-card surface-card">
-              <div className="info-card-icon-box">
-                <Mail size={22} />
-              </div>
-              <div className="info-card-content">
-                <span className="info-card-label">البريد الإلكتروني المعتمد</span>
-                <span className="info-card-value" dir="ltr">{BRAND_INFO.email}</span>
-                <button
-                  type="button"
-                  className="info-copy-action"
-                  onClick={() => handleCopy(BRAND_INFO.email, 'email')}
-                >
-                  {copiedField === 'email' ? (
-                    <>
-                      <Check size={14} className="copied-icon" /> تم نسخ البريد
-                    </>
-                  ) : (
-                    <>
-                      <Copy size={14} /> نسخ البريد الإلكتروني
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* Address Card */}
-            <div className="info-feature-card surface-card">
-              <div className="info-card-icon-box">
-                <MapPin size={22} />
-              </div>
-              <div className="info-card-content">
-                <span className="info-card-label">المقر الرئيسي</span>
-                <p className="info-card-address">{BRAND_INFO.address}</p>
-                <span className="info-sub-hint">مكتب معتمد ومرخص</span>
-              </div>
-            </div>
-
-            {/* Working Hours Card */}
-            <div className="info-feature-card surface-card">
-              <div className="info-card-icon-box">
-                <Clock size={22} />
-              </div>
-              <div className="info-card-content">
-                <span className="info-card-label">أوقات العمل الرسمية</span>
-                <span className="info-card-value-small">{BRAND_INFO.workingHours}</span>
-                <span className="info-sub-hint">{BRAND_INFO.consultationNote}</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>

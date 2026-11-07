@@ -1,68 +1,105 @@
-.cta-section {
+.cta-monument-section {
   position: relative;
-  padding-top: 2rem;
+  padding-top: clamp(3rem, 6vw, 6rem);
+  padding-bottom: clamp(3rem, 6vw, 6rem);
 }
 
-.cta-banner-wrapper {
-  background: linear-gradient(135deg, #121c2a 0%, #0d1420 100%);
+.cta-monument-frame {
+  background: linear-gradient(135deg, #131d2c 0%, #090e17 100%);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
-  padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(3.5rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4.5rem);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(185, 154, 101, 0.12);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(185, 154, 101, 0.12);
   text-align: center;
 }
 
-.cta-glow-element {
+.cta-ambient-glow {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(185, 154, 101, 0.14) 0%, transparent 70%);
-  filter: blur(60px);
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(185, 154, 101, 0.16) 0%, transparent 70%);
+  filter: blur(70px);
   pointer-events: none;
 }
 
-.cta-content-box {
+.cta-hairline-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(195, 164, 111, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(195, 164, 111, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.cta-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.cta-corner.top-right {
+  top: 16px;
+  right: 16px;
+  border-top: 2px solid var(--accent-secondary);
+  border-right: 2px solid var(--accent-secondary);
+}
+
+.cta-corner.bottom-left {
+  bottom: 16px;
+  left: 16px;
+  border-bottom: 2px solid var(--accent-secondary);
+  border-left: 2px solid var(--accent-secondary);
+}
+
+.cta-monument-content {
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  max-width: 780px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
-.cta-eyebrow {
+.cta-badge-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-heading);
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--accent-secondary);
-  letter-spacing: 0.05em;
   background: rgba(185, 154, 101, 0.12);
-  padding: 0.3rem 0.85rem;
-  border-radius: var(--radius-pill);
   border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 0.35rem 1rem;
 }
 
-.cta-headline {
-  font-size: clamp(2rem, 3.8vw, 3.2rem);
+.cta-monument-heading {
+  font-size: clamp(2.2rem, 4.2vw, 3.6rem);
   font-weight: 800;
   line-height: 1.25;
   color: var(--text-primary);
+  letter-spacing: -0.025em;
 }
 
-.cta-supporting {
-  font-size: clamp(1rem, 1.2vw, 1.15rem);
+.cta-monument-supporting {
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
   line-height: 1.85;
   color: var(--text-secondary);
+  max-width: 660px;
 }
 
-.cta-actions-group {
+.cta-actions-cluster {
   display: flex;
   align-items: center;
   gap: 1.25rem;
@@ -71,15 +108,15 @@
   margin-top: 0.5rem;
 }
 
-.cta-direct-call-hint {
+.cta-direct-line {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin-top: 0.75rem;
 }
 
-.hint-icon {
+.direct-phone-icon {
   color: var(--accent-secondary);
 }

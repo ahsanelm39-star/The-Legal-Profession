@@ -21,13 +21,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
         setIsScrolled(false);
       }
 
-      // Track active section for nav highlight
+      // Track active section for nav highlight from the 6 navigation items
       const sections = NAV_ITEMS.map((item) => item.id);
-      for (const id of sections.reverse()) {
+      for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 160) {
+          if (rect.top <= 200) {
             setActiveSection(id);
             break;
           }
@@ -36,6 +36,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -48,10 +49,37 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
         <a href="#hero" className="brand-logo" aria-label="مِيثاق للمحاماة والاستشارات القانونية">
           <div className="logo-symbol" aria-hidden="true">
             <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
-              <rect x="0.5" y="0.5" width="39" height="39" rx="8" stroke="url(#logoGoldGrad)" strokeWidth="1" fill="#0D1420" />
-              <path d="M12 30V13C12 10.79 13.79 9 16 9H24C26.21 9 28 10.79 28 13V30" stroke="url(#logoGoldGrad)" strokeWidth="2" strokeLinecap="round" />
-              <path d="M16 30V17C16 15.9 16.9 15 18 15H22C23.1 15 24 15.9 24 17V30" stroke="#D0B783" strokeWidth="1.5" strokeLinecap="round" />
-              <line x1="9" y1="30" x2="31" y2="30" stroke="url(#logoGoldGrad)" strokeWidth="2" strokeLinecap="round" />
+              <rect
+                x="0.5"
+                y="0.5"
+                width="39"
+                height="39"
+                rx="8"
+                stroke="url(#logoGoldGrad)"
+                strokeWidth="1"
+                fill="#0D1420"
+              />
+              <path
+                d="M12 30V13C12 10.79 13.79 9 16 9H24C26.21 9 28 10.79 28 13V30"
+                stroke="url(#logoGoldGrad)"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <path
+                d="M16 30V17C16 15.9 16.9 15 18 15H22C23.1 15 24 15.9 24 17V30"
+                stroke="#D0B783"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <line
+                x1="9"
+                y1="30"
+                x2="31"
+                y2="30"
+                stroke="url(#logoGoldGrad)"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
               <circle cx="20" cy="21" r="2" fill="#D0B783" />
               <defs>
                 <linearGradient id="logoGoldGrad" x1="9" y1="9" x2="31" y2="31" gradientUnits="userSpaceOnUse">
@@ -68,7 +96,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
           </div>
         </a>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation — Exactly 6 items */}
         <nav className="desktop-nav" aria-label="القائمة الرئيسية">
           <ul className="nav-list">
             {NAV_ITEMS.map((item) => (
@@ -89,8 +117,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
         <div className="header-actions">
           <div className="header-contact-quick">
             <a href={`tel:${BRAND_INFO.phone}`} className="quick-phone-link" aria-label="الاتصال بالمكتب">
-              <Phone size={15} className="phone-icon" />
-              <span className="quick-phone-text" dir="ltr">{BRAND_INFO.phone}</span>
+              <Phone size={14} className="phone-icon" />
+              <span className="quick-phone-text" dir="ltr">
+                {BRAND_INFO.phone}
+              </span>
             </a>
           </div>
 
@@ -118,7 +148,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu — Exactly 6 items */}
       <div className={`mobile-nav-drawer ${mobileMenuOpen ? 'open' : ''}`} aria-hidden={!mobileMenuOpen}>
         <div className="mobile-drawer-inner">
           <ul className="mobile-nav-list">
@@ -148,7 +178,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
               icon={<ArrowUpLeft size={18} />}
               iconPosition="end"
             >
-              اطلب استشارة قانونية
+              اطلب استشارة
             </Button>
 
             <div className="mobile-drawer-contact">

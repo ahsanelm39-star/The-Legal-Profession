@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Plus, Minus, HelpCircle } from 'lucide-react';
-import { FAQ_ITEMS } from '../../constants/content';
+import { Plus, Minus, HelpCircle, ShieldCheck } from 'lucide-react';
+import { FAQ_SECTION } from '../../constants/content';
 import { SectionHeading } from '../ui/SectionHeading';
 import './FAQ.css';
 
@@ -15,47 +15,54 @@ export const FAQ: React.FC = () => {
     <section id="faq" className="section section-alt faq-section">
       <div className="container">
         <SectionHeading
-          badge="الوضوح الإجرائي"
-          title="أسئلة يهمك"
-          highlight="معرفتها"
-          description="إجابات واضحة ومباشرة عن أبرز التساؤلات المتعلقة بآليات طلب الخدمة والتواصل والمتابعة."
+          badge="الشفافية والتوضيح"
+          title={FAQ_SECTION.heading}
+          description="إجابات مباشرة ومفصلة عن آليات التواصل والتعاقد وتقديم الرأي القانوني في مِيثاق."
         />
 
         <div className="faq-accordion-wrapper">
-          {FAQ_ITEMS.map((item) => {
+          {FAQ_SECTION.items.map((item) => {
             const isOpen = openId === item.id;
 
             return (
               <div
                 key={item.id}
-                className={`faq-item-card surface-card ${isOpen ? 'active' : ''}`}
+                className={`faq-luxury-item surface-card ${isOpen ? 'active' : ''}`}
               >
                 <button
                   type="button"
-                  className="faq-question-btn"
+                  className="faq-luxury-btn"
                   onClick={() => toggleItem(item.id)}
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${item.id}`}
                 >
-                  <div className="faq-question-text-row">
-                    <HelpCircle size={18} className="faq-help-icon" />
-                    <span className="faq-question-title">{item.question}</span>
+                  <div className="faq-title-group">
+                    <HelpCircle size={18} className="faq-lead-icon" />
+                    <span className="faq-q-title">{item.question}</span>
                   </div>
 
-                  <div className="faq-icon-indicator" aria-hidden="true">
-                    {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                  <div className="faq-toggle-circle" aria-hidden="true">
+                    {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                   </div>
                 </button>
 
                 <div
                   id={`faq-answer-${item.id}`}
-                  className={`faq-answer-panel ${isOpen ? 'expanded' : ''}`}
+                  className={`faq-luxury-panel ${isOpen ? 'expanded' : ''}`}
                 >
-                  <p className="faq-answer-text">{item.answer}</p>
+                  <div className="faq-luxury-content">
+                    <p className="faq-answer-paragraph">{item.answer}</p>
+                  </div>
                 </div>
               </div>
             );
           })}
+        </div>
+
+        {/* Reassurance Footer */}
+        <div className="faq-assurance-bar">
+          <ShieldCheck size={18} className="assurance-icon" />
+          <span>لديك استفسار خاص بطبيعة مسألتك؟ فريقنا القانوني جاهز للإجابة عبر قنوات الاتصال الرسمية.</span>
         </div>
       </div>
     </section>
