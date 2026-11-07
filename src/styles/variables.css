@@ -1,0 +1,44 @@
+:root {
+  /* Color System */
+  --bg-primary: #080B12;
+  --bg-secondary: #0D1420;
+  --bg-surface: #121C2A;
+  --bg-surface-elevated: #162438;
+  --bg-surface-glass: rgba(18, 28, 42, 0.75);
+
+  --border-subtle: rgba(195, 164, 111, 0.18);
+  --border-medium: rgba(195, 164, 111, 0.35);
+  --border-highlight: rgba(208, 183, 131, 0.6);
+
+  --accent-primary: #B99A65;
+  --accent-secondary: #D0B783;
+  --accent-dark: #8C6F38;
+  --accent-glow: rgba(185, 154, 101, 0.15);
+
+  --text-primary: #F2F0E9;
+  --text-secondary: #A6ACB7;
+  --text-muted: #777F8B;
+  --text-accent: #D0B783;
+
+  /* Typography */
+  --font-heading: 'Alexandria', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Layout & Spacing */
+  --container-max: 1360px;
+  --container-padding: clamp(1.25rem, 4vw, 3.5rem);
+  --section-spacing: clamp(5rem, 10vw, 9rem);
+  --header-height: 84px;
+
+  /* Transitions & Shadows */
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.2s ease-out;
+  --shadow-elevation: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 1px 1px rgba(195, 164, 111, 0.12);
+  --shadow-glow: 0 0 35px rgba(185, 154, 101, 0.2);
+
+  /* Borders */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 9999px;
+}

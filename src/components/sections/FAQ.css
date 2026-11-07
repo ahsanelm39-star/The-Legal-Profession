@@ -1,0 +1,109 @@
+.faq-section {
+  position: relative;
+}
+
+.faq-accordion-wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item-card {
+  border-radius: var(--radius-md);
+  transition: var(--transition-fast);
+}
+
+.faq-item-card.active {
+  border-color: var(--accent-primary);
+  background: var(--bg-surface-elevated);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.faq-question-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  cursor: pointer;
+  text-align: right;
+  color: var(--text-primary);
+}
+
+.faq-question-text-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.faq-help-icon {
+  color: var(--accent-secondary);
+  flex-shrink: 0;
+}
+
+.faq-question-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.faq-icon-indicator {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(185, 154, 101, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-secondary);
+  flex-shrink: 0;
+  transition: var(--transition-fast);
+}
+
+.faq-item-card.active .faq-icon-indicator {
+  background: var(--accent-primary);
+  color: #080B12;
+}
+
+.faq-answer-panel {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0 1.75rem;
+}
+
+.faq-answer-panel.expanded {
+  max-height: 400px;
+  opacity: 1;
+  padding-bottom: 1.75rem;
+}
+
+.faq-answer-text {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .faq-question-btn {
+    padding: 1.25rem;
+  }
+  .faq-question-title {
+    font-size: 0.95rem;
+  }
+  .faq-answer-panel {
+    padding: 0 1.25rem;
+  }
+  .faq-answer-panel.expanded {
+    padding-bottom: 1.25rem;
+  }
+}

@@ -1,0 +1,144 @@
+.methodology-section {
+  position: relative;
+}
+
+.methodology-flow {
+  position: relative;
+}
+
+.timeline-track {
+  display: none;
+}
+
+@media (min-width: 1040px) {
+  .timeline-track {
+    display: block;
+    position: absolute;
+    top: 55px;
+    right: 5%;
+    left: 5%;
+    height: 2px;
+    background: rgba(195, 164, 111, 0.15);
+    z-index: 0;
+  }
+  .timeline-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    transform: scaleX(0.2);
+    transform-origin: right center;
+    transition: transform 0.2s linear;
+  }
+}
+
+.methodology-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.methodology-step-card {
+  padding: 2.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.step-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.step-counter-ring {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-surface-elevated);
+  border: 1.5px solid var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(185, 154, 101, 0.2);
+}
+
+.step-number {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--accent-secondary);
+  font-size: 1.1rem;
+}
+
+.step-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.step-title {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin-bottom: 0.875rem;
+  line-height: 1.35;
+}
+
+.step-description {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.step-deliverables-box {
+  background: rgba(18, 28, 42, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.1rem;
+}
+
+.deliverables-heading {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-secondary);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.deliverables-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.deliverable-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.deliv-icon {
+  color: var(--accent-secondary);
+  flex-shrink: 0;
+}
+
+.step-connector-arrow {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .methodology-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .methodology-steps-grid {
+    grid-template-columns: 1fr;
+  }
+}

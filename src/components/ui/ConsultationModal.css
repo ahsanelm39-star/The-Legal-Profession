@@ -1,0 +1,243 @@
+.consult-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 12, 0.88);
+  backdrop-filter: blur(14px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.consult-modal-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 580px;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(185, 154, 101, 0.15);
+  animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 2.25rem;
+  overflow: hidden;
+}
+
+.consult-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.consult-close-btn:hover {
+  background: var(--accent-primary);
+  color: #080B12;
+}
+
+.consult-badge {
+  display: inline-block;
+  color: var(--accent-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.consult-title {
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.consult-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.meeting-type-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.type-option {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  text-align: right;
+  transition: var(--transition-smooth);
+}
+
+.type-option:hover {
+  border-color: var(--border-medium);
+}
+
+.type-option.active {
+  border-color: var(--accent-primary);
+  background: rgba(185, 154, 101, 0.1);
+}
+
+.type-icon {
+  color: var(--accent-secondary);
+  flex-shrink: 0;
+}
+
+.type-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.type-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.type-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.consult-field-group {
+  margin-bottom: 1.15rem;
+}
+
+.consult-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+.consult-input,
+.consult-select {
+  width: 100%;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.consult-input:focus,
+.consult-select:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(185, 154, 101, 0.15);
+}
+
+.consult-select option {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.consult-privacy-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 1.25rem 0 1.5rem;
+}
+
+.note-icon {
+  color: var(--accent-secondary);
+  flex-shrink: 0;
+}
+
+.consult-success-view {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.success-icon-ring {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: rgba(185, 154, 101, 0.12);
+  border: 1px solid var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-icon {
+  color: var(--accent-secondary);
+}
+
+.success-title {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.success-text {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 440px;
+  margin: 0 auto 1.5rem;
+}
+
+.success-details-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1.75rem;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.success-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+}
+
+.success-row-label {
+  color: var(--text-muted);
+}
+
+.success-row-val {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.success-status {
+  color: var(--accent-secondary);
+}
+
+@media (max-width: 540px) {
+  .meeting-type-selector {
+    grid-template-columns: 1fr;
+  }
+  .consult-modal-box {
+    padding: 1.75rem 1.25rem;
+  }
+}
