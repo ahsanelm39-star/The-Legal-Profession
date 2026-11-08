@@ -1,15 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CheckCircle2 } from 'lucide-react';
 import { METHODOLOGY_CONTENT } from '../../constants/content';
 import { Methodology3DScene } from '../three/Methodology3DScene';
 import { SectionHeading } from '../ui/SectionHeading';
 import './Methodology.css';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export const Methodology: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Animate section heading elements
+      gsap.fromTo(
+        '.methodology-spatial-section .section-header',
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          clearProps: 'opacity,transform',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 82%',
+            once: true,
+          },
+        }
+      );
+
+      // Animate step cards with stagger
+      gsap.fromTo(
+        '.spatial-step-card',
+        { opacity: 0, x: 30 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.75,
+          stagger: 0.12,
+          ease: 'power3.out',
+          clearProps: 'opacity,transform',
+          scrollTrigger: {
+            trigger: '.methodology-timeline-col',
+            start: 'top 80%',
+            once: true,
+          },
+        }
+      );
+
+      // Animate the 3D display column
+      gsap.fromTo(
+        '.methodology-3d-frame',
+        { opacity: 0, scale: 0.96 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 1.0,
+          ease: 'power3.out',
+          clearProps: 'opacity,transform',
+          scrollTrigger: {
+            trigger: '.methodology-3d-sticky-col',
+            start: 'top 80%',
+            once: true,
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="methodology" className="section section-alt methodology-spatial-section">
+    <section id="methodology" ref={sectionRef} className="section section-alt methodology-spatial-section">
       <div className="container">
         <SectionHeading
           badge="مسار الإنجاز والعمل"

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { Hero } from './components/sections/Hero';
@@ -16,6 +18,8 @@ import { Contact } from './components/sections/Contact';
 import { ConsultationModal } from './components/ui/ConsultationModal';
 import { ArticleModal } from './components/ui/ArticleModal';
 import type { InsightArticle } from './types';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const App: React.FC = () => {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);

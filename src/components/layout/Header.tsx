@@ -40,116 +40,166 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle body scroll locking and Escape key for mobile menu
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth > 1040 && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [mobileMenuOpen]);
+
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
-    <header className={`site-header ${isScrolled ? 'header-scrolled' : ''}`}>
-      <div className="container header-container">
-        {/* Brand Logo */}
-        <a href="#hero" className="brand-logo" aria-label="مِيثاق للمحاماة والاستشارات القانونية">
-          <div className="logo-symbol" aria-hidden="true">
-            <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
-              <rect
-                x="0.5"
-                y="0.5"
-                width="39"
-                height="39"
-                rx="8"
-                stroke="url(#logoGoldGrad)"
-                strokeWidth="1"
-                fill="#0D1420"
-              />
-              <path
-                d="M12 30V13C12 10.79 13.79 9 16 9H24C26.21 9 28 10.79 28 13V30"
-                stroke="url(#logoGoldGrad)"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-              <path
-                d="M16 30V17C16 15.9 16.9 15 18 15H22C23.1 15 24 15.9 24 17V30"
-                stroke="#D0B783"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-              <line
-                x1="9"
-                y1="30"
-                x2="31"
-                y2="30"
-                stroke="url(#logoGoldGrad)"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-              <circle cx="20" cy="21" r="2" fill="#D0B783" />
-              <defs>
-                <linearGradient id="logoGoldGrad" x1="9" y1="9" x2="31" y2="31" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#F2F0E9" />
-                  <stop offset="0.5" stopColor="#D0B783" />
-                  <stop offset="1" stopColor="#B99A65" />
-                </linearGradient>
-              </defs>
-            </svg>
+    <>
+      <header className={`site-header ${isScrolled ? 'header-scrolled' : ''}`}>
+        <div className="container header-container">
+          {/* Brand Logo */}
+          <a href="#hero" className="brand-logo" aria-label="مِيثاق للمحاماة والاستشارات القانونية">
+            <div className="logo-symbol" aria-hidden="true">
+              <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
+                <rect
+                  x="0.5"
+                  y="0.5"
+                  width="39"
+                  height="39"
+                  rx="8"
+                  stroke="url(#logoGoldGrad)"
+                  strokeWidth="1"
+                  fill="#0D1420"
+                />
+                <path
+                  d="M12 30V13C12 10.79 13.79 9 16 9H24C26.21 9 28 10.79 28 13V30"
+                  stroke="url(#logoGoldGrad)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M16 30V17C16 15.9 16.9 15 18 15H22C23.1 15 24 15.9 24 17V30"
+                  stroke="#D0B783"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+                <line
+                  x1="9"
+                  y1="30"
+                  x2="31"
+                  y2="30"
+                  stroke="url(#logoGoldGrad)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <circle cx="20" cy="21" r="2" fill="#D0B783" />
+                <defs>
+                  <linearGradient id="logoGoldGrad" x1="9" y1="9" x2="31" y2="31" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#F2F0E9" />
+                    <stop offset="0.5" stopColor="#D0B783" />
+                    <stop offset="1" stopColor="#B99A65" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div className="brand-titles">
+              <span className="brand-name">{BRAND_INFO.name}</span>
+              <span className="brand-subtitle">{BRAND_INFO.subtitle}</span>
+            </div>
+          </a>
+
+          {/* Desktop Navigation — Exactly 6 items */}
+          <nav className="desktop-nav" aria-label="القائمة الرئيسية">
+            <ul className="nav-list">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.id} className="nav-item">
+                  <a
+                    href={item.href}
+                    className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
+                  >
+                    {item.label}
+                    {activeSection === item.id && <span className="active-dot" aria-hidden="true" />}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Header Action & Mobile Toggle */}
+          <div className="header-actions">
+            <div className="header-contact-quick">
+              <a href={`tel:${BRAND_INFO.phone}`} className="quick-phone-link" aria-label="الاتصال بالمكتب">
+                <Phone size={14} className="phone-icon" />
+                <span className="quick-phone-text" dir="ltr">
+                  {BRAND_INFO.phone}
+                </span>
+              </a>
+            </div>
+
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={onOpenConsultation}
+              icon={<ArrowUpLeft size={16} />}
+              iconPosition="end"
+              className="header-cta-btn"
+            >
+              اطلب استشارة
+            </Button>
+
+            {/* Mobile Menu Toggle Button */}
+            <button
+              type="button"
+              className="mobile-menu-btn"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              aria-label={mobileMenuOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav-drawer"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
-          <div className="brand-titles">
-            <span className="brand-name">{BRAND_INFO.name}</span>
-            <span className="brand-subtitle">{BRAND_INFO.subtitle}</span>
-          </div>
-        </a>
-
-        {/* Desktop Navigation — Exactly 6 items */}
-        <nav className="desktop-nav" aria-label="القائمة الرئيسية">
-          <ul className="nav-list">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.id} className="nav-item">
-                <a
-                  href={item.href}
-                  className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
-                >
-                  {item.label}
-                  {activeSection === item.id && <span className="active-dot" aria-hidden="true" />}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* Header Action & Mobile Toggle */}
-        <div className="header-actions">
-          <div className="header-contact-quick">
-            <a href={`tel:${BRAND_INFO.phone}`} className="quick-phone-link" aria-label="الاتصال بالمكتب">
-              <Phone size={14} className="phone-icon" />
-              <span className="quick-phone-text" dir="ltr">
-                {BRAND_INFO.phone}
-              </span>
-            </a>
-          </div>
-
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={onOpenConsultation}
-            icon={<ArrowUpLeft size={16} />}
-            iconPosition="end"
-            className="header-cta-btn"
-          >
-            اطلب استشارة
-          </Button>
-
-          {/* Mobile Menu Toggle Button */}
-          <button
-            type="button"
-            className="mobile-menu-btn"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
-            aria-expanded={mobileMenuOpen}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
-      </div>
+      </header>
 
-      {/* Mobile Drawer Menu — Exactly 6 items */}
-      <div className={`mobile-nav-drawer ${mobileMenuOpen ? 'open' : ''}`} aria-hidden={!mobileMenuOpen}>
+      {/* Mobile Backdrop Overlay */}
+      <div
+        className={`mobile-nav-backdrop ${mobileMenuOpen ? 'open' : ''}`}
+        onClick={closeMobileMenu}
+        aria-hidden="true"
+      />
+
+      {/* Mobile Drawer Menu — Outside <header> to prevent backdrop-filter containing block trap */}
+      <div
+        id="mobile-nav-drawer"
+        className={`mobile-nav-drawer ${mobileMenuOpen ? 'open' : ''}`}
+        aria-hidden={!mobileMenuOpen}
+        role="dialog"
+        aria-modal="true"
+        aria-label="القائمة الرئيسية"
+      >
         <div className="mobile-drawer-inner">
           <ul className="mobile-nav-list">
             {NAV_ITEMS.map((item) => (
@@ -191,6 +241,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 };

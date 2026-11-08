@@ -10,21 +10,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const WhyUs: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const rowsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.manifesto-row-item', {
-        scrollTrigger: {
-          trigger: rowsRef.current,
-          start: 'top 75%',
-        },
-        opacity: 0,
-        y: 45,
-        duration: 0.95,
-        stagger: 0.2,
-        ease: 'power3.out',
-      });
+      gsap.fromTo(
+        '.manifesto-row-item',
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.85,
+          stagger: 0.15,
+          ease: 'power3.out',
+          clearProps: 'opacity,transform',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            once: true,
+          },
+        }
+      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -59,7 +64,7 @@ export const WhyUs: React.FC = () => {
           </div>
 
           {/* Expansive Horizontal Rows (01 - 04) */}
-          <div ref={rowsRef} className="why-us-rows-container">
+          <div className="why-us-rows-container">
             {WHY_CHOOSE_US_CONTENT.principles.map((item) => (
               <div key={item.number} className="manifesto-row-item surface-card">
                 <div className="row-number-column">

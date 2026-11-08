@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   Phone,
   Mail,
@@ -18,7 +20,10 @@ import { SectionHeading } from '../ui/SectionHeading';
 import { Button } from '../ui/Button';
 import './Contact.css';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export const Contact: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState<ContactFormData>({
     fullName: '',
     email: '',
@@ -35,6 +40,85 @@ export const Contact: React.FC = () => {
   });
 
   const [copiedField, setCopiedField] = useState<string | null>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Heading
+      gsap.fromTo(
+        '.contact-section .section-header',
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          clearProps: 'opacity,transform',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 82%',
+            once: true,
+          },
+        }
+      );
+
+      // Editorial info side
+      gsap.fromTo(
+        '.contact-editorial-info',
+        { opacity: 0, x: 30 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.85,
+          ease: 'power3.out',
+          clearProps: 'opacity,transform',
+          scrollTrigger: {
+            trigger: '.contact-editorial-split',
+            start: 'top 80%',
+            once: true,
+          },
+        }
+      );
+
+      // Form side
+      gsap.fromTo(
+        '.contact-form-container',
+        { opacity: 0, x: -30 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.85,
+          ease: 'power3.out',
+          clearProps: 'opacity,transform',
+          scrollTrigger: {
+            trigger: '.contact-editorial-split',
+            start: 'top 80%',
+            once: true,
+          },
+        }
+      );
+
+      // Channel cards stagger
+      gsap.fromTo(
+        '.contact-channel-card',
+        { opacity: 0, y: 18 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'power3.out',
+          clearProps: 'opacity,transform',
+          scrollTrigger: {
+            trigger: '.info-channels-grid',
+            start: 'top 82%',
+            once: true,
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleCopy = (text: string, fieldName: string) => {
     navigator.clipboard.writeText(text);

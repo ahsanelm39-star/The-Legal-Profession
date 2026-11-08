@@ -18,17 +18,23 @@ export const Insights: React.FC<InsightsProps> = ({ onSelectArticle }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.article-editorial-block', {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-        },
-        opacity: 0,
-        y: 40,
-        duration: 0.95,
-        stagger: 0.2,
-        ease: 'power3.out',
-      });
+      gsap.fromTo(
+        '.article-editorial-block',
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.85,
+          stagger: 0.18,
+          ease: 'power3.out',
+          clearProps: 'opacity,transform',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            once: true,
+          },
+        }
+      );
     }, sectionRef);
 
     return () => ctx.revert();

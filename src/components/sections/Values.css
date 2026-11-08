@@ -188,9 +188,171 @@
 }
 
 .showcase-footer-hint {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
   padding-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.footer-hint-check {
+  color: var(--accent-secondary);
+}
+
+/* Commitments Box */
+.showcase-commitments-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: rgba(8, 11, 18, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem 1.5rem;
+}
+
+.commitments-lead-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--accent-secondary);
+  letter-spacing: 0.01em;
+}
+
+.commitments-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+}
+
+.commitment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.commitment-check-icon {
+  color: var(--accent-secondary);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* Institutional Code of Conduct Strip */
+.values-conduct-strip {
+  margin-top: clamp(3rem, 5vw, 4.5rem);
+  padding: clamp(2rem, 4vw, 3rem);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-medium);
+  background: var(--bg-surface-elevated);
+}
+
+.conduct-strip-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.conduct-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  background: rgba(185, 154, 101, 0.12);
+  border: 1px solid var(--border-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-secondary);
+  flex-shrink: 0;
+}
+
+.conduct-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.conduct-main-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.conduct-sub {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.conduct-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 1040px) {
+  .conduct-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .conduct-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.conduct-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  transition: var(--transition-fast);
+}
+
+.conduct-card:hover {
+  border-color: var(--border-medium);
+  transform: translateY(-2px);
+}
+
+.conduct-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.conduct-roman {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.conduct-label {
+  font-size: 1.025rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.conduct-desc {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
 }
 
 @media (max-width: 991px) {

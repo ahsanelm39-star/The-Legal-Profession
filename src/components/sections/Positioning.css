@@ -2,17 +2,19 @@
   position: relative;
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
+  padding-top: clamp(4rem, 7vw, 7rem);
+  padding-bottom: clamp(4rem, 7vw, 7rem);
 }
 
 .positioning-editorial-wrapper {
-  max-width: 1040px;
+  max-width: 1100px;
   margin: 0 auto;
   text-align: center;
   position: relative;
 }
 
 .pos-badge-row {
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
   display: flex;
   justify-content: center;
 }
@@ -20,7 +22,7 @@
 .pos-quote-box {
   position: relative;
   padding: 1.5rem clamp(1rem, 4vw, 3rem);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .quote-mark {
@@ -45,11 +47,20 @@
 }
 
 .positioning-headline {
-  font-size: clamp(1.85rem, 3.2vw, 3.1rem);
+  font-size: clamp(1.65rem, 2.9vw, 2.85rem);
   font-weight: 700;
-  line-height: 1.45;
+  line-height: 1.52;
   color: var(--text-primary);
   letter-spacing: -0.02em;
+}
+
+.pos-subheadline {
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  line-height: 1.8;
+  color: var(--accent-secondary);
+  max-width: 850px;
+  margin: 0 auto 2.5rem auto;
+  font-weight: 500;
 }
 
 .positioning-paragraphs-grid {
@@ -57,40 +68,264 @@
   grid-template-columns: 1fr 1fr;
   gap: clamp(1.5rem, 4vw, 3rem);
   text-align: right;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .pos-paragraph {
   font-size: 1.05rem;
   line-height: 1.9;
   color: var(--text-secondary);
+  margin: 0;
 }
 
+/* Comparative Framework: Traditional vs Meethaq */
+.pos-comparison-wrapper {
+  padding: 2.25rem 2rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 3.5rem;
+  text-align: right;
+  border: 1px solid var(--border-medium);
+  background: var(--bg-surface-elevated);
+}
+
+.pos-comparison-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.comparison-icon {
+  color: var(--accent-secondary);
+  flex-shrink: 0;
+}
+
+.comparison-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.pos-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.comparison-col {
+  padding: 1.75rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.traditional-col {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.meethaq-col {
+  background: rgba(185, 154, 101, 0.05);
+  border: 1px solid var(--border-medium);
+}
+
+.col-tag {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 4px;
+}
+
+.traditional-tag {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+}
+
+.meethaq-tag {
+  background: rgba(185, 154, 101, 0.15);
+  color: var(--accent-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.col-desc {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.col-points-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+}
+
+.col-point-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.col-point-item.traditional {
+  color: var(--text-muted);
+}
+
+.col-point-item.meethaq {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.traditional-icon {
+  color: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.meethaq-icon {
+  color: var(--accent-secondary);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* 4 Strategic Pillars */
+.pos-pillars-section {
+  text-align: right;
+  margin-bottom: 3.5rem;
+}
+
+.pos-pillars-title-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.pillars-icon {
+  color: var(--accent-secondary);
+}
+
+.pos-pillars-main-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.pos-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.pos-pillar-card {
+  padding: 1.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.pos-pillar-card:hover {
+  border-color: var(--border-medium);
+  background: var(--bg-surface-elevated);
+  transform: translateY(-3px);
+}
+
+.pillar-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.pillar-number {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.pillar-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.pillar-desc {
+  font-size: 0.925rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.pillar-corner-decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-top: 2px solid var(--border-medium);
+  border-left: 2px solid var(--border-medium);
+  opacity: 0.4;
+}
+
+/* Stats Row */
 .positioning-stats-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  padding-top: 1.5rem;
+  padding-top: 2rem;
 }
 
 .stat-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .stat-number {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 3.5vw, 2.75rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
 }
 
 .stat-label {
-  font-size: 0.95rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.stat-note {
+  font-size: 0.825rem;
   color: var(--text-muted);
-  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .pos-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+  .pos-pillars-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {

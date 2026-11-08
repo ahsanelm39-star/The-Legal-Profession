@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import {
   Briefcase,
   FileText,
@@ -22,6 +22,17 @@ interface PracticeAreasProps {
 export const PracticeAreas: React.FC<PracticeAreasProps> = ({ onOpenConsultation }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const activeService = PRACTICE_AREAS[activeIndex];
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  const handleServiceSelect = useCallback((idx: number) => {
+    setActiveIndex(idx);
+    // On mobile: scroll the detail panel into view smoothly after state update
+    if (window.innerWidth <= 1100 && panelRef.current) {
+      setTimeout(() => {
+        panelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 60);
+    }
+  }, []);
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
@@ -66,7 +77,7 @@ export const PracticeAreas: React.FC<PracticeAreasProps> = ({ onOpenConsultation
                     role="tab"
                     aria-selected={isActive}
                     className={`service-tab-button ${isActive ? 'active' : ''}`}
-                    onClick={() => setActiveIndex(idx)}
+                    onClick={() => handleServiceSelect(idx)}
                   >
                     <div className="tab-number-badge">
                       <span className="tab-num">{item.number}</span>
@@ -86,7 +97,7 @@ export const PracticeAreas: React.FC<PracticeAreasProps> = ({ onOpenConsultation
           </div>
 
           {/* 2. Expansive Active Service Detail Content & Three.js 3D Visualization */}
-          <div className="services-presentation-panel surface-card">
+          <div ref={panelRef} className="services-presentation-panel surface-card">
             <div className="presentation-content-area">
               <div className="presentation-header">
                 <div className="presentation-meta">
@@ -116,15 +127,7 @@ export const PracticeAreas: React.FC<PracticeAreasProps> = ({ onOpenConsultation
               </div>
 
               <div className="presentation-action-row">
-                <Button
-                  variant="primary"
-                  size="md"
-                  onClick={onOpenConsultation}
-                  icon={<ArrowUpLeft size={18} />}
-                  iconPosition="end"
-                >
-                  طلب استشارة في {activeService.title}
-                </Button>
+                
               </div>
             </div>
 

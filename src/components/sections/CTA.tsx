@@ -41,6 +41,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenConsultation }) => {
                 icon={<ArrowUpLeft size={18} />}
                 iconPosition="end"
               >
+                
                 {FINAL_CTA.buttonText}
               </Button>
 

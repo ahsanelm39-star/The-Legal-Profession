@@ -89,9 +89,9 @@
 }
 
 .featured-article-title {
-  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
   color: var(--text-primary);
-  line-height: 1.35;
+  line-height: 1.48;
 }
 
 .featured-article-summary {

@@ -1,10 +1,59 @@
 .faq-section {
   position: relative;
   overflow: hidden;
+  padding-top: clamp(4rem, 7vw, 7rem);
+  padding-bottom: clamp(4rem, 7vw, 7rem);
+}
+
+/* Category Filter Tabs */
+.faq-category-filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.faq-filter-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 0.55rem 1.25rem;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition-fast);
+}
+
+.faq-filter-btn:hover {
+  background: var(--bg-surface-elevated);
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+}
+
+.faq-filter-btn.active {
+  background: rgba(185, 154, 101, 0.15);
+  border-color: var(--accent-primary);
+  color: var(--accent-secondary);
+}
+
+.filter-count {
+  font-size: 0.75rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 10px;
+  background: rgba(185, 154, 101, 0.2);
+  color: var(--accent-secondary);
+  font-weight: 700;
 }
 
 .faq-accordion-wrapper {
-  max-width: 900px;
+  max-width: 950px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -45,6 +94,17 @@
   gap: 1rem;
 }
 
+.faq-index-num {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--accent-secondary);
+  background: rgba(185, 154, 101, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+}
+
 .faq-lead-icon {
   color: var(--accent-secondary);
   flex-shrink: 0;
@@ -54,7 +114,7 @@
   font-family: var(--font-heading);
   font-size: 1.15rem;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.45;
   color: var(--text-primary);
 }
 
@@ -91,7 +151,7 @@
 }
 
 .faq-luxury-panel.expanded {
-  max-height: 350px;
+  max-height: 500px;
   opacity: 1;
   padding-bottom: 1.75rem;
 }
@@ -99,6 +159,9 @@
 .faq-luxury-content {
   border-top: 1px solid var(--border-subtle);
   padding-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .faq-answer-paragraph {
@@ -109,23 +172,73 @@
   text-align: justify;
 }
 
-.faq-assurance-bar {
-  max-width: 900px;
-  margin: 2.5rem auto 0;
-  background: rgba(18, 28, 42, 0.5);
+.faq-highlight-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(185, 154, 101, 0.08);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 1rem 1.5rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.875rem;
+  color: var(--accent-secondary);
+}
+
+.highlight-icon {
+  color: var(--accent-secondary);
+  flex-shrink: 0;
+}
+
+/* Reassurance Bar */
+.faq-assurance-bar {
+  max-width: 950px;
+  margin: 2.75rem auto 0;
+  background: rgba(18, 28, 42, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.assurance-info {
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  font-size: 0.875rem;
-  color: var(--text-muted);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  flex: 1;
+  min-width: 280px;
 }
 
 .assurance-icon {
   color: var(--accent-secondary);
   flex-shrink: 0;
+}
+
+.faq-contact-shortcut {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--accent-secondary);
+  text-decoration: none;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(185, 154, 101, 0.12);
+  border: 1px solid var(--border-subtle);
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.faq-contact-shortcut:hover {
+  background: var(--accent-primary);
+  color: #080B12;
+  border-color: var(--accent-primary);
 }
 
 @media (max-width: 640px) {
@@ -140,5 +253,9 @@
   }
   .faq-luxury-panel.expanded {
     padding-bottom: 1.25rem;
+  }
+  .faq-assurance-bar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
