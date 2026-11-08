@@ -7,19 +7,17 @@ import {
   Building2,
   ShieldCheck,
   CheckCircle2,
-  ArrowUpLeft,
 } from 'lucide-react';
 import { SERVICES_SECTION, PRACTICE_AREAS } from '../../constants/content';
 import { Services3DScene } from '../three/Services3DScene';
 import { SectionHeading } from '../ui/SectionHeading';
-import { Button } from '../ui/Button';
 import './PracticeAreas.css';
 
 interface PracticeAreasProps {
   onOpenConsultation: () => void;
 }
 
-export const PracticeAreas: React.FC<PracticeAreasProps> = ({ onOpenConsultation }) => {
+export const PracticeAreas: React.FC<PracticeAreasProps> = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const activeService = PRACTICE_AREAS[activeIndex];
   const panelRef = useRef<HTMLDivElement>(null);
